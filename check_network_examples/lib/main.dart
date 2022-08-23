@@ -59,8 +59,8 @@ class _CheckNetworkDemoState extends State<CheckNetworkDemo> {
       /// NestedScrollView. Because the InternetStatusHeader is a SliverPersistentHeaderDelegate.
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-        /// Then to use we need InternetStatusHeader with the SliverPersistentHeader.
-        /// so, we could pin the header and show the status of the internet.
+          /// Then to use we need InternetStatusHeader with the SliverPersistentHeader.
+          /// so, we could pin the header and show the status of the internet.
           SliverPersistentHeader(
             delegate: InternetStatusHeader(
               context,
@@ -69,14 +69,14 @@ class _CheckNetworkDemoState extends State<CheckNetworkDemo> {
             pinned: true,
           ),
         ],
-        body:  const Center(
-          child:  Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Text.rich(
-              TextSpan(
-                children: [
+        body: const Center(
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text.rich(
+                TextSpan(children: [
                   TextSpan(
-                    text: 'To see the demo, please switch status of the internet from',
+                    text:
+                        'To see the demo, please switch status of the internet from',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -106,10 +106,8 @@ class _CheckNetworkDemoState extends State<CheckNetworkDemo> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ]
-              ),
-              )
-          ),
+                ]),
+              )),
         ),
       ),
     );
@@ -223,5 +221,3 @@ class InternetBar extends StatelessWidget {
     );
   }
 }
-
-
