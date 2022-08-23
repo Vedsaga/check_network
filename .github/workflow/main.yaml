@@ -1,0 +1,41 @@
+name: Dart CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: dart:2.17
+      
+    steps:
+      - uses: actions/checkout@v2      
+      - name: Install Dependencies
+        run: dart pub get
+      
+      - name: Format
+        run: dart format --set-exit-if-changed .
+      
+      - name: Activate coverage 
+        run: dart pub global activate coverage
+
+      - name: Run tests
+        run: dart pub global run coverage:test_with_coverage
+      
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+        with:
+          path: "./coverage/lcov.info"
+          min_coverage: 80
+
+      - name: Upload coverage to Codecov 
+        uses: codecov/codecov-action@v1.0.2
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          file: coverage/lcov.info
