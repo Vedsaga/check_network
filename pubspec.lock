@@ -338,13 +338,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  mocktail:
-    dependency: "direct dev"
-    description:
-      name: mocktail
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0"
   nm:
     dependency: transitive
     description:
