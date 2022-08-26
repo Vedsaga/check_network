@@ -8,7 +8,7 @@ class InternetStatusHeader extends SliverPersistentHeaderDelegate {
   /// This is the constructor of the [InternetStatusHeader] class.
   InternetStatusHeader(
     this.context, {
-    required this.statusWidget,
+    required this.internetStatusWidgetBuilder,
     double? headerHeight,
   }) : _headerHeight = headerHeight ?? kToolbarHeight;
 
@@ -16,8 +16,8 @@ class InternetStatusHeader extends SliverPersistentHeaderDelegate {
   /// so, as the internet status changes, we need to rebuild the widget.
   final BuildContext context;
 
-  /// a function that take internet status and return the widget.
-  final Widget Function(InternetStatus?) statusWidget;
+  /// a function that take `InternetStatus` as a parameter and return a widget.
+  final Widget Function(InternetStatus?) internetStatusWidgetBuilder;
 
   /// Expected height of the header.
   final double _headerHeight;
@@ -31,11 +31,11 @@ class InternetStatusHeader extends SliverPersistentHeaderDelegate {
     return StreamBuilder<InternetStatus>(
       stream: InternetStatusProvider.of(context).onStatusChange,
       builder: (context, snapshot) {
-        /// We are warping the wiDgetBuilder function with the Align widget
+        /// We are warping the internetStatusWidgetBuilder with the Align widget
         /// because there is known issue which is "layoutExtent exceeds
-        ///  the paintExtent when animating pinned SliverPersistentHeader".
+        /// the paintExtent when animating pinned SliverPersistentHeader".
         /// For more details check the issue here: https://github.com/flutter/flutter/issues/78748
-        return Align(child: statusWidget(snapshot.data));
+        return Align(child: internetStatusWidgetBuilder(snapshot.data));
       },
     );
   }
