@@ -5,11 +5,12 @@ void main() {
   /// add below code to insure WidgetsFlutterBinding is initialized
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    /// Warp the App with the InternetStatusProvider.
+    /// Warp the Top Most Widget with the InternetStatusProvider.
     /// This will provide the current internet status to the whole app.
     InternetStatusProvider(
-        currentInternetStatus: CurrentInternetStatus(showConnectedStatusFor: 5),
-        child: const MyApp()),
+      currentInternetStatus: CurrentInternetStatus(showConnectedStatusFor: 5),
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -64,7 +65,7 @@ class _CheckNetworkDemoState extends State<CheckNetworkDemo> {
           SliverPersistentHeader(
             delegate: InternetStatusHeader(
               context,
-              statusWidget: _getWidget,
+              internetStatusWidgetBuilder: currentStatusWidget,
             ),
             pinned: true,
           ),
@@ -115,7 +116,7 @@ class _CheckNetworkDemoState extends State<CheckNetworkDemo> {
 
   /// This method will return the widget based on the [internetStatus].
   /// The [internetStatus] is the current state of the internet.
-  Widget _getWidget(InternetStatus? internetStatus) {
+  Widget currentStatusWidget(InternetStatus? internetStatus) {
     switch (internetStatus) {
       case InternetStatus.checking:
         return const InternetBar(
@@ -221,3 +222,4 @@ class InternetBar extends StatelessWidget {
     );
   }
 }
+// LICENSE
