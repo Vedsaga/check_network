@@ -1,7 +1,7 @@
 import 'package:check_network/check_network.dart';
 
 /// Helper class that contains the address options and indicates whether
-/// opening a socket to it succeeded.
+/// opening a socket to it succeeded or not.
 class AddressCheckResult {
   /// Constructor for AddressCheckResult.
   /// [options] is the options used to check for a connection.
