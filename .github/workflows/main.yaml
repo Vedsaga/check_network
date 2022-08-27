@@ -35,12 +35,15 @@ jobs:
       - name:  ✨ Check Formatting
         run: flutter format --set-exit-if-changed .
       
-      # install dependencies
-      - name: 📦 Install Flutter Dependencies
-        run: flutter pub get
       # activate coverage
       - name: 📈 Activate Coverage
         run: flutter pub global activate coverage
+
+      # install dependencies
+      - name: 📦 Install Flutter Dependencies
+        run: |
+          flutter clean --verbose
+          flutter pub get --verbose
 
       # run tests
       - name: 🏃‍♀️ Run Tests
