@@ -4,12 +4,15 @@ import 'dart:io';
 import 'package:check_network/check_network.dart';
 
 /// This is a singleton that can be accessed like a regular constructor
-/// i.e. InternetDataChecker() always returns the same instance.
-class InternetDataChecker {
+/// i.e. CheckInternet() always returns the same instance.
+/// When [hasConnection] or [connectionStatus] is called,
+/// this utility class tries to ping every address in this list
+/// until it finds one which is reachable or runs out of addresses.
+class CheckInternet {
   /// This is the singleton instance.
-  factory InternetDataChecker() => _instance;
+  factory CheckInternet() => _instance;
 
-  InternetDataChecker._() {
+  CheckInternet._() {
     // immediately perform an initial check so we know the last status?
     connectionStatus.then((status) => _lastStatus = status);
 
@@ -25,8 +28,8 @@ class InternetDataChecker {
       };
   }
 
-  /// Create list of Addresses to check option by iterating over
-  /// the list of default I
+  /// Function return list of [AddressCheckOptions] that get called when
+  /// address are not provided.
   static List<AddressCheckOptions> defaultAddress() {
     /// loop over the list of default addresses
     ///  and create a list of AddressCheckOptions
@@ -43,28 +46,15 @@ class InternetDataChecker {
     return options;
   }
 
-  //
-
   /// A list of internet addresses (with port and timeout) to ping.
-  ///
   /// These should be globally available destinations.
-  /// Default is [defaultAddress].
-  ///
-  /// When [hasConnection] or [connectionStatus] is called,
-  /// this utility class tries to ping every address in this list.
-  ///
-  /// The provided addresses should be good enough to test for data connection
-  /// but you can, of course, supply your own.
-  ///
-  /// See [AddressCheckOptions] for more info.
-  List<AddressCheckOptions> addresses = defaultAddress();
+  final List<AddressCheckOptions> addresses = defaultAddress();
 
   /// This is a singleton that can be accessed like a regular constructor
-  /// i.e. InternetDataChecker() always returns the same instance.
-  static final InternetDataChecker _instance = InternetDataChecker._();
+  /// i.e. CheckInternet() always returns the same instance.
+  static final CheckInternet _instance = CheckInternet._();
 
-  /// Ping a single address. See [AddressCheckOptions] for
-  /// info on the accepted argument.
+  /// Ping a single address and return the result.
   Future<AddressCheckResult> isHostReachable(
     AddressCheckOptions options,
   ) async {
@@ -84,13 +74,13 @@ class InternetDataChecker {
   }
 
   /// Returns the results from the last check.
-  ///
   /// The list is populated only when [hasConnection]
   /// (or [connectionStatus]) is called.
   List<AddressCheckResult> get lastTryResults => _lastTryResults;
   final List<AddressCheckResult> _lastTryResults = <AddressCheckResult>[];
 
   /// Initiates a request to each address in [addresses].
+  /// The provided addresses should be good enough to test for data connection.
   /// If at least one of the addresses is reachable
   /// we assume an internet connection is available and return `true`.
   /// otherwise we return `false`.
@@ -118,15 +108,13 @@ class InternetDataChecker {
     return result.future;
   }
 
-  /// Initiates a request to each address in [addresses].
-  /// If at least one of the addresses is reachable
-  /// we assume an internet connection is available and return `true`
-  /// [DataConnectionStatus.connected].
-  /// [DataConnectionStatus.disconnected] otherwise.
-  Future<DataConnectionStatus> get connectionStatus async {
+  /// Initiates a request to each address in [addresses]. If at least one of the
+  ///  addresses is reachable we assume an internet connection is available and
+  ///  return  [ConnectionStatus.established] otherwise[ConnectionStatus.failed]
+  Future<ConnectionStatus> get connectionStatus async {
     return await hasConnection
-        ? DataConnectionStatus.connected
-        : DataConnectionStatus.disconnected;
+        ? ConnectionStatus.established
+        : ConnectionStatus.failed;
   }
 
   /// The interval between periodic checks. Periodic checks are
@@ -165,16 +153,16 @@ class InternetDataChecker {
 
   // _lastStatus should only be set by _maybeEmitStatusUpdate()
   // and the _statusController's.onCancel event handler
-  DataConnectionStatus? _lastStatus;
+  ConnectionStatus? _lastStatus;
   Timer? _timerHandle;
 
   // controller for the exposed 'onStatusChange' Stream
-  final StreamController<DataConnectionStatus> _statusController =
+  final StreamController<ConnectionStatus> _statusController =
       StreamController.broadcast();
 
   /// When all the listeners are removed from `onStatusChange`, the internal
   /// timer is cancelled and the stream does not emit events.
-  Stream<DataConnectionStatus> get onStatusChange => _statusController.stream;
+  Stream<ConnectionStatus> get onStatusChange => _statusController.stream;
 
   /// Returns true if there are any listeners attached to [onStatusChange]
   bool get hasListeners => _statusController.hasListener;
