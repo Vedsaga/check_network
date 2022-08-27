@@ -1,4 +1,4 @@
-name: Dart CI
+name: Main Workflow
 
 on:
   push:
@@ -10,7 +10,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest      
+    runs-on: ubuntu-latest
+
     steps:
     # checkout the git
       - name: 📚 Git Checkout
@@ -29,15 +30,14 @@ jobs:
         with:
           channel: stable
           cache: true 
-      
-      # install dependencies
-      - name: 📦 Install Flutter Dependencies
-        run: flutter pub get
-      
+
       # check formatting
       - name:  ✨ Check Formatting
         run: flutter format --set-exit-if-changed .
       
+      # install dependencies
+      - name: 📦 Install Flutter Dependencies
+        run: flutter pub get
       # activate coverage
       - name: 📈 Activate Coverage
         run: flutter pub global activate coverage
@@ -58,3 +58,19 @@ jobs:
         uses: codecov/codecov-action@v1.0.2
         with:
           file: coverage/lcov.info
+
+      # build example app from this path -> example/lib/main.dart
+      - name: 📱 Build Example App
+        run: flutter build apk example/lib/main.dart --release --verbose
+
+      # upload example app
+      - name: 🚀 Upload APK
+        uses: actions/upload-artifact@master
+        with:
+          name: apk-build
+          path:  build/app/outputs/flutter-apk/app-release.apk
+
+        
+
+
+     
