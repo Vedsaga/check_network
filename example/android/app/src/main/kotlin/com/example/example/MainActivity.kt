@@ -1,4 +1,4 @@
-package com.example.check_network_examples
+package com.example.example
 
 import io.flutter.embedding.android.FlutterActivity
 

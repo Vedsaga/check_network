@@ -1,5 +1,5 @@
-import 'package:check_network/check_network.dart';
 import 'package:flutter/material.dart';
+import 'package:check_network/check_network.dart';
 
 void main() {
   /// add below code to insure WidgetsFlutterBinding is initialized
@@ -222,4 +222,3 @@ class InternetBar extends StatelessWidget {
     );
   }
 }
-// LICENSE
