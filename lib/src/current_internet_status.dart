@@ -8,9 +8,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 /// which can be used to listen to the status changes of the internet.
 class CurrentInternetStatus {
   /// Constructor of the [CurrentInternetStatus] class.
-  CurrentInternetStatus({required this.showConnectedStatusFor})
+  CurrentInternetStatus({required this.connectedStatusDuration})
       : _connectivity = Connectivity(),
-        _internetDataChecker = InternetDataChecker(),
+        _checkInternet = CheckInternet(),
         _currentInternetStatus = StreamController<InternetStatus>.broadcast() {
     _connectivity.onConnectivityChanged.listen(
       _handleConnectivityChange,
@@ -21,20 +21,19 @@ class CurrentInternetStatus {
   /// if wifi or mobile data is switched on.
   late final Connectivity _connectivity;
 
-  /// This is the [InternetDataChecker] instance that is used to check
+  /// This is the [CheckInternet] instance that is used to check
   ///  if wifi or mobile data is switched on then if the Internet is available
   /// or not. It is initialized in the constructor.
-  late final InternetDataChecker _internetDataChecker;
+  late final CheckInternet _checkInternet;
 
   /// No of seconds to wait before change the status from connected to available
-  /// so that during that period user can see the status as connected.
-  final int showConnectedStatusFor;
+  final int connectedStatusDuration;
 
   /// Stream controller of the current internet status.
   late final StreamController<InternetStatus> _currentInternetStatus;
 
   /// timer that will be used to change the status from connected to available
-  /// after the [showConnectedStatusFor] seconds.
+  /// after the [connectedStatusDuration] seconds.
   Timer? _timer;
 
   /// This is the method _handleConnectivityChange that will receive the
@@ -55,13 +54,13 @@ class CurrentInternetStatus {
     final isDataOn = connectivityResult == ConnectivityResult.wifi ||
         connectivityResult == ConnectivityResult.mobile;
     if (isDataOn) {
-      final isDeviceConnected = await _internetDataChecker.hasConnection;
+      final isDeviceConnected = await _checkInternet.hasConnection;
       if (isDeviceConnected) {
         /// If the device is connected to the Internet, we emit the
         /// [InternetConnectionState.connected] state.
         _currentInternetStatus.add(InternetStatus.connected);
         _timer = Timer(
-          Duration(seconds: showConnectedStatusFor),
+          Duration(seconds: connectedStatusDuration),
           () async {
             _currentInternetStatus.add(InternetStatus.available);
           },
@@ -85,8 +84,8 @@ class CurrentInternetStatus {
   /// This will close the stream of the current internet status.
   void dispose() {
     _currentInternetStatus.close();
-    if (!_internetDataChecker.hasListeners) {
-      _internetDataChecker.dispose();
+    if (!_checkInternet.hasListeners) {
+      _checkInternet.dispose();
     }
     _timer?.cancel();
   }

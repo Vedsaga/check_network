@@ -3,28 +3,27 @@ import 'dart:io';
 import 'package:check_network/check_network.dart';
 
 /// This class should be pretty self-explanatory.
-/// It
+/// It takes [InternetAddress] and [int] for [port] and [Duration] for [timeout]
+/// which then uses [CheckInternet] to check if the address is reachable.
+
 class AddressCheckOptions {
-  /// constructor for AddressCheckOptions
-  /// [address] is the address to check for a connection.
-  /// [port] is the port to use when checking for a connection.
-  /// [timeout] is the timeout to use when checking for a connection.
-  /// If [port] or [timeout] are not specified,
-  /// they both fallback to the default values.
-  ///
+  /// In constructor for AddressCheckOptions. Set default [port] and [timeout].
+  /// So, that while creating instance if [port] or [timeout] is not set,
+  /// it will be set to default values.
   AddressCheckOptions(
     this.address, {
     this.port = Default.defaultPort,
     this.timeout = Default.defaultTimeout,
   });
 
-  /// This take InternetAddress
+  /// This the address to check for a connection.
   final InternetAddress address;
 
   /// This is the port to use when checking for a connection.
   final int port;
 
-  /// This is the timeout to use when checking for a connection.
+  /// Timeout is used to determine the amount of time to wait for a connection
+  /// to be established before considering the connection to have failed.
   final Duration timeout;
 
   @override

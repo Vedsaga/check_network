@@ -4,12 +4,12 @@ import 'package:check_network/check_network.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  InternetDataChecker? checkInternetAvailability;
-  StreamSubscription<DataConnectionStatus>? listener1;
-  StreamSubscription<DataConnectionStatus>? listener2;
+  CheckInternet? checkInternetAvailability;
+  StreamSubscription<ConnectionStatus>? listener1;
+  StreamSubscription<ConnectionStatus>? listener2;
   // this is setup before every test it creates a new instance of the class
   setUpAll(() {
-    checkInternetAvailability = InternetDataChecker();
+    checkInternetAvailability = CheckInternet();
   });
 
   // destroy any active listener after each test
@@ -20,7 +20,7 @@ void main() {
 
   group('Validate Internet', () {
     test('should return a singleton', () {
-      expect(checkInternetAvailability, isA<InternetDataChecker>());
+      expect(checkInternetAvailability, isA<CheckInternet>());
     });
 
     test('should return list of addresses', () {
@@ -34,10 +34,10 @@ void main() {
       expect(checkInternetAvailability!.hasConnection, isA<Future<bool>>());
     });
 
-    test('connection status should return Future DataConnectionStatus ', () {
+    test('connection status should return Future ConnectionStatus ', () {
       expect(
         checkInternetAvailability!.connectionStatus,
-        isA<Future<DataConnectionStatus>>(),
+        isA<Future<ConnectionStatus>>(),
       );
     });
 
@@ -53,11 +53,11 @@ void main() {
     });
 
     test(
-        '''Awaited call to connectionStatus should return a DataConnectionStatus''',
+        '''Awaited call to connectionStatus should return a ConnectionStatus''',
         () async {
       expect(
         await checkInternetAvailability!.connectionStatus,
-        isA<DataConnectionStatus>(),
+        isA<ConnectionStatus>(),
       );
     });
 
