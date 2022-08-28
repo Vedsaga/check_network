@@ -47,29 +47,3 @@ jobs:
       # run tests
       - name: 🏃‍♀️ 📈  Run Tests and Coverage
         run: flutter test --coverage --verbose
-      
-      # widget rebuild example
-      - name: 📁 Widget Rebuild Example
-        working-directory: ./example
-        run: flutter build apk lib/widget_rebuild.dart --release --verbose
-
-    # upload example app
-      - name: 🚀 Upload APK
-        uses: actions/upload-artifact@master
-        with:
-          name: widget_rebuild
-          path: build/app/outputs/flutter-apk/release/widget_rebuild.apk
-
-      # show snackbar example
-      - name: 📁 Show Snackbar Example
-        working-directory: ./example
-        run: flutter build apk lib/show_snackbar.dart --release --verbose
-
-      # upload example app
-      - name: 🚀 Upload APK
-        uses: actions/upload-artifact@master
-        with:
-          name: show_snackbar
-          path:  build/app/outputs/flutter-apk/release/show_snackbar.apk
-
-     
