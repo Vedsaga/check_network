@@ -42,13 +42,9 @@ jobs:
           flutter pub get --verbose
 
       # run tests
-      - name: 🏃‍♀️ Run Tests
-        run: flutter pub global run coverage:test_with_coverage
+      - name: 🏃‍♀️ 📈  Run Tests and Coverage
+        run: flutter test --coverage --verbose
       
-      # check code with min coverage: 80
-      - name: 📈 Check Code Coverage Score
-        run: flutter run --coverage
-
       # upload coverage report
       - name: 🏁 Upload Coverage Report
         uses: codecov/codecov-action@v1
