@@ -37,8 +37,9 @@ class CheckNetworkDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return scaffold with StreamBuilder to display the current internet status
-    // in the body of the scaffold.
+    // A Scaffold with StreamBuilder to that receives the streams from
+    // [InternetStatusProvider.of(context).onStatusChange] and recall a function
+    // that return a widget based on the current internet status.
     return Scaffold(
       body: StreamBuilder<InternetStatus>(
         // access the current internet status from the provider
