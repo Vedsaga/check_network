@@ -21,6 +21,16 @@ This package is simply ping DNS sever to check if availability of internet is va
   - Showing Dialog if internet is not available
   - Redirecting to another screen if internet is not available
   - etc.
+  
+  
+
+[Show Snackbar](https://user-images.githubusercontent.com/59083528/187082881-6a1649d8-094d-4f57-a425-fd6786761605.mp4)
+
+[Widget Rebuild](https://user-images.githubusercontent.com/59083528/187082885-66129bc9-6c07-47bf-a818-5e528d68122f.mp4)
+
+
+
+  
 ## Setup
 
 To use this package, you need to install it first. You can install it by running this command:
