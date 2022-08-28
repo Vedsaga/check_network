@@ -18,8 +18,8 @@ This package is simply ping DNS sever to check if availability of internet is va
   Such as:
   - [Rebuilding Widget if internet is not available](https://github.com/Vedsaga/check_network/tree/master/example/lib/widget_rebuild.dart)
   - [Showing Snackbar if internet is not available](https://github.com/Vedsaga/check_network/tree/master/example/lib/show_snackbar.dart)
-  - [Showing Dialog if internet is not available](https://github.com/Vedsaga/check_network/tree/master/example/lib/show_dialog.dart)
-  - [Redirecting to another screen if internet is not available](https://github.com/Vedsaga/check_network/tree/master/example/lib/redirect.dart)
+  - Showing Dialog if internet is not available
+  - Redirecting to another screen if internet is not available
   - etc.
 ## Setup
 
