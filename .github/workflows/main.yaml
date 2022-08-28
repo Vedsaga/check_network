@@ -45,20 +45,20 @@ jobs:
       - name: 🏃‍♀️ 📈  Run Tests and Coverage
         run: flutter test --coverage --verbose
       
-
-      # switch dir to example
-      - name: 📁 Switch to example and Build Example App
+      # snackbar example
+      - name: 📁 Snackbar Example
         working-directory: ./example
-        run: flutter build apk --release --verbose
-
-      # upload example app
-      - name: 🚀 Upload APK
+        run: flutter build apk lib/show_snackbar.dart --release --verbose
         uses: actions/upload-artifact@master
         with:
-          name: apk-build
-          path:  build/example.apk
+          name: snackbar_example
+          path:  apk/android/snackbar_example.apk
 
-        
-
-
-     
+      # widget rebuild example
+      - name: 📁 Widget Rebuild Example
+        working-directory: ./example
+        run: flutter build apk lib/widget_rebuild.dart --release --verbose
+        uses: actions/upload-artifact@master
+        with:
+          name: widget_rebuild_example
+          path:  apk/android/widget_rebuild_example.apk
