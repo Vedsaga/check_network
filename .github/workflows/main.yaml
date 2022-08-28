@@ -35,10 +35,6 @@ jobs:
       - name:  ✨ Check Formatting
         run: flutter format --set-exit-if-changed .
       
-      # activate coverage
-      - name: 📈 Activate Coverage
-        run: flutter pub global activate coverage
-
       # install dependencies
       - name: 📦 Install Flutter Dependencies
         run: |
@@ -49,18 +45,19 @@ jobs:
       - name: 🏃‍♀️ Run Tests
         run: flutter pub global run coverage:test_with_coverage
       
-      # check code coverage score
-      - name: 📢 Check Code Coverage Score
-        uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
-        with:
-          path: "./coverage/lcov.info"
-          min_coverage: 100
+      # check code with min coverage: 80
+      - name: 📈 Check Code Coverage Score
+        run: flutter run --coverage
 
       # upload coverage report
       - name: 🏁 Upload Coverage Report
-        uses: codecov/codecov-action@v1.0.2
+        uses: codecov/codecov-action@v1
         with:
-          file: coverage/lcov.info
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
+
 
       # build example app from this path -> example/lib/main.dart
       - name: 📱 Build Example App
