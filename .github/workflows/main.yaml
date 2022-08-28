@@ -53,12 +53,12 @@ jobs:
         working-directory: ./example
         run: flutter build apk lib/widget_rebuild.dart --release --verbose
 
-      # upload example app
+    # upload example app
       - name: 🚀 Upload APK
         uses: actions/upload-artifact@master
         with:
-          name: widget_rebuild_example
-          path:  apk/android/widget_rebuild.apk
+          name: widget_rebuild
+          path: build/app/outputs/flutter-apk/release/widget_rebuild.apk
 
       # show snackbar example
       - name: 📁 Show Snackbar Example
@@ -69,6 +69,7 @@ jobs:
       - name: 🚀 Upload APK
         uses: actions/upload-artifact@master
         with:
-          name: show_snackbar_example
-          path:  apk/android/show_snackbar.apk
+          name: show_snackbar
+          path:  build/app/outputs/flutter-apk/release/show_snackbar.apk
+
      
