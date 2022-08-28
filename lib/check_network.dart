@@ -10,4 +10,3 @@ export 'src/check_internet.dart';
 export 'src/current_internet_status.dart';
 export 'src/current_internet_status.dart';
 export 'src/internet_status_provider.dart';
-export 'widgets/internet_status_header.dart';
