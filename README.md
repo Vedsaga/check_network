@@ -1,3 +1,8 @@
+<p align="center">
+<a href="https://pub.dev/packages/check_network"><img src="https://img.shields.io/pub/v/check_network.svg" alt="Pub"></a>
+<a href="https://github.com/Vedsaga/check_network"><img src="https://img.shields.io/github/stars/Vedsaga/check_network.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Star on Github"></a>
+</p>
+
 # check_network
 
 > Checking Internet availability by pinging DNS servers to check if the Internet connection is available or not.
@@ -20,6 +25,7 @@ This package is simply ping DNS sever to check if availability of internet is va
   - [Showing Snackbar if internet is not available](https://github.com/Vedsaga/check_network/tree/master/example/lib/show_snackbar.dart)
   - Showing Dialog if internet is not available
   - Redirecting to another screen if internet is not available
+  - check availability of specific domain address
   - etc.
   
   
@@ -52,10 +58,11 @@ dependencies:
 List of features ready and TODOs for future development
 
 - Check internet availability
-  
+- Add option to check availability of specific domain address
+
+
 To-do list:
 
-- Add option to check availability of specific domain address
 - Support internet speed test
   
 
