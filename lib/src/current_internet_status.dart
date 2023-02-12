@@ -28,7 +28,7 @@ class CurrentInternetStatus {
 
   /// No of seconds to wait before change the status from connected to available
   /// If incase connection status is connected and then you want to show user
-  /// something or do something before status changed to available then 
+  /// something or do something before status changed to available then
   /// its useful to put wait time else suggested to pass 0
   final int waitOnConnectedStatusInSeconds;
 
