@@ -26,7 +26,7 @@ This package is simply ping DNS sever to check if availability of internet is va
   
   
 
-[Show Snackbar](docs/img/show_snackbar.gif)
+![Show Snackbar](docs/img/show_snackbar.gif)
 
 
   
