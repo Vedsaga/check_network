@@ -8,7 +8,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 /// which can be used to listen to the status changes of the internet.
 class CurrentInternetStatus {
   /// Constructor of the [CurrentInternetStatus] class.
-  CurrentInternetStatus({required this.connectedStatusDuration})
+  CurrentInternetStatus({required this.waitOnConnectedStatusInSeconds})
       : _connectivity = Connectivity(),
         _checkInternet = CheckInternet(),
         _currentInternetStatus = StreamController<InternetStatus>.broadcast() {
@@ -27,13 +27,13 @@ class CurrentInternetStatus {
   late final CheckInternet _checkInternet;
 
   /// No of seconds to wait before change the status from connected to available
-  final int connectedStatusDuration;
+  final int waitOnConnectedStatusInSeconds;
 
   /// Stream controller of the current internet status.
   late final StreamController<InternetStatus> _currentInternetStatus;
 
   /// timer that will be used to change the status from connected to available
-  /// after the [connectedStatusDuration] seconds.
+  /// after the [waitOnConnectedStatusInSeconds] seconds.
   Timer? _timer;
 
   /// This is the method _handleConnectivityChange that will receive the
@@ -60,7 +60,7 @@ class CurrentInternetStatus {
         /// [InternetConnectionState.connected] state.
         _currentInternetStatus.add(InternetStatus.connected);
         _timer = Timer(
-          Duration(seconds: connectedStatusDuration),
+          Duration(seconds: waitOnConnectedStatusInSeconds),
           () async {
             _currentInternetStatus.add(InternetStatus.available);
           },
