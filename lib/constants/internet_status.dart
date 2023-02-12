@@ -23,6 +23,6 @@ enum InternetStatus {
 
   /// If the internet is available.
   /// This represents that wifi or mobile data is on
-  /// and internet connection is available currently.
+  /// and internet connection is actively available currently.
   available,
 }
