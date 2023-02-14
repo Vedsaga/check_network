@@ -178,14 +178,21 @@ class CheckInternet {
 
   ///Ping a custom domain address and return true if it get successful response,
   /// return false if it gets failure response
-  /// Sample Input: Uri.parse("https://google.com")
-  /// Sample Output: true
-  Future<bool> pingCustomDomainAddress({required Uri uri}) async {
+  /// If you want to check different statusCode, then you can pass that too by
+  /// using optional statusCode parameter.
+  /// Sample Input 1: uri: Uri.parse("https://google.com")
+  /// Sample Output 1: true
+  /// Sample Input 2: uri: Uri.parse("https://google.com"), statusCode: 200
+  /// Sample Output 2: true
+  Future<bool> pingCustomDomainAddress({
+    required Uri uri,
+    int? statusCode,
+  }) async {
     try {
       final result = await http.get(uri).timeout(
             const Duration(seconds: 10),
           );
-      if (result.statusCode == 200) {
+      if (result.statusCode == (statusCode ?? 200)) {
         return true;
       }
       return false;
