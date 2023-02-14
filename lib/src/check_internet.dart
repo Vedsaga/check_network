@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:check_network/check_network.dart';
+import 'package:http/http.dart' as http;
 
 /// This is a singleton that can be accessed like a regular constructor
 /// i.e. CheckInternet() always returns the same instance.
@@ -174,5 +174,30 @@ class CheckInternet {
   void dispose() {
     _statusController.close();
     _timerHandle?.cancel();
+  }
+
+  ///Ping a custom domain address and return true if it get successful response,
+  /// return false if it gets failure response
+  /// If you want to check different statusCode, then you can pass that too by
+  /// using optional statusCode parameter.
+  /// Sample Input 1: uri: Uri.parse("https://google.com")
+  /// Sample Output 1: true
+  /// Sample Input 2: uri: Uri.parse("https://google.com"), statusCode: 200
+  /// Sample Output 2: true
+  Future<bool> pingCustomDomainAddress({
+    required Uri uri,
+    int? statusCode,
+  }) async {
+    try {
+      final result = await http.get(uri).timeout(
+            const Duration(seconds: 10),
+          );
+      if (result.statusCode == (statusCode ?? 200)) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 }
