@@ -8,7 +8,8 @@ void main() {
     /// Warp the Top Most Widget with the InternetStatusProvider.
     /// This will provide the current internet status to the whole app.
     InternetStatusProvider(
-      currentInternetStatus: CurrentInternetStatus(connectedStatusDuration: 5),
+      currentInternetStatus:
+          CurrentInternetStatus(waitOnConnectedStatusInSeconds: 5),
       child: const MyApp(),
     ),
   );
@@ -23,10 +24,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.white,
-      ),
+          primarySwatch: Colors.lightBlue,
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Colors.white,
+          useMaterial3: true),
       home: const CheckNetworkDemo(),
     );
   }

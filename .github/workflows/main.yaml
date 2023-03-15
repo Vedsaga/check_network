@@ -36,7 +36,7 @@ jobs:
 
       # check formatting
       - name:  ✨ Check Formatting
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
       
       # install dependencies
       - name: 📦 Install Flutter Dependencies

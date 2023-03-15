@@ -9,7 +9,8 @@ void main() {
     /// Warp the Top Most Widget with the InternetStatusProvider.
     /// This will provide the current internet status to the whole app.
     InternetStatusProvider(
-      currentInternetStatus: CurrentInternetStatus(connectedStatusDuration: 5),
+      currentInternetStatus:
+          CurrentInternetStatus(waitOnConnectedStatusInSeconds: 5),
       child: const MyApp(),
     ),
   );
@@ -24,10 +25,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.white,
-      ),
+          primarySwatch: Colors.lightBlue,
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Colors.white,
+          useMaterial3: true),
       home: const CheckNetworkDemo(),
     );
   }
@@ -78,39 +79,42 @@ class CheckNetworkDemo extends StatelessWidget {
   }
 }
 
-ScaffoldFeatureController simpleSnackbarMessage(
+ScaffoldMessengerState simpleSnackbarMessage(
   BuildContext context, {
   required String message,
   required IconData icon,
   required Color color,
   required Duration duration,
 }) {
-  return ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.fixed,
-      backgroundColor: color,
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: Colors.white,
-            size: 24,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            message,
-            style: const TextStyle(
+  return ScaffoldMessenger.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        duration: duration,
+        elevation: 0,
+        behavior: SnackBarBehavior.fixed,
+        backgroundColor: color,
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
               color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+              size: 24,
             ),
-          ),
-        ],
+            const SizedBox(width: 8),
+            Text(
+              message,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
 }
 
 IconData _getIcon(InternetStatus? type) {
@@ -189,6 +193,8 @@ Duration _showDuration(InternetStatus? type) {
       return const Duration(seconds: 3);
     case InternetStatus.connected:
       return const Duration(seconds: 3);
+    case InternetStatus.disconnected:
+      return const Duration(days: 365);
     default:
       // There is no way to show the snackbar for infinite time
       // so we are using 365 days hoping people will not use the app for that long

@@ -1,8 +1,8 @@
 /// Represents the status of an address check.
 enum AddressCheckResultStatus {
-  /// If the address is success.
+  /// If the address check success
   success,
 
-  /// If the address is failed.
+  /// If the address check failed.
   failed,
 }

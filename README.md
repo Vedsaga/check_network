@@ -4,12 +4,14 @@
 
 ## Table of contents
 
-- [General info](#general-info)
-- [Setup](#setup)
-- [Features](#features)
-- [How to use](#how-to-use)
+- [check\_network](#check_network)
+  - [Table of contents](#table-of-contents)
+  - [General info](#general-info)
+  - [Setup](#setup)
+  - [Features](#features)
+  - [How to use](#how-to-use)
     - [Rebuild Widget](#rebuild-widget)
-- [Acknowledgements](#acknowledgements)
+  - [Acknowledgements](#acknowledgements)
   
 
 ## General info
@@ -24,10 +26,7 @@ This package is simply ping DNS sever to check if availability of internet is va
   
   
 
-[Show Snackbar](https://user-images.githubusercontent.com/59083528/187082881-6a1649d8-094d-4f57-a425-fd6786761605.mp4)
-
-[Widget Rebuild](https://user-images.githubusercontent.com/59083528/187082885-66129bc9-6c07-47bf-a818-5e528d68122f.mp4)
-
+![Show Snackbar](docs/img/show_snackbar.gif)
 
 
   
@@ -72,7 +71,7 @@ import 'package:check_network/check_network.dart';
 2. Warp the Top Most Widget with the InternetStatusProvider. This will provide the **`Stream of InternetStatus`** to all children widgets.
 ```dart
 InternetStatusProvider(
- currentInternetStatus: CurrentInternetStatus(showConnectedStatusFor: 5),
+ currentInternetStatus: CurrentInternetStatus(waitOnConnectedStatusInSeconds: 5),
  child: const MyApp(),
 ),
 ```
