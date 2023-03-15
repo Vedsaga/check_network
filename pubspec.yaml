@@ -1,6 +1,6 @@
 name: check_network
 description: Checking Internet and Testing Server availability with just few line.
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/Vedsaga/check_network
 issue_tracker: https://github.com/Vedsaga/check_network/issues
 
